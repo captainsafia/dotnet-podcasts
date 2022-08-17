@@ -50,13 +50,13 @@ jobs:
             azPSVersion: '3.1.0'
             inlineScript: |
               az deployment group create -n ghactionbgtasks${{ github.sha }} -g ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} --template-file deploy/Services/acr.deployment.json --parameters acrName=${{secrets.ACR_NAME}}
-
+          
       - name: Login to ACR
-        uses: docker/login-action@v1
-        with:
-          registry: ${{ secrets.ACR_NAME }}.azurecr.io
-          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
-          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+        run: |
+          set -euo pipefail
+          access_token=$(az account get-access-token --query accessToken -o tsv)
+          refresh_token=$(curl https://${{ secrets.ACR_NAME }}.azurecr.io/oauth2/exchange -v -d "grant_type=access_token&service=${{ secrets.ACR_NAME }}.azurecr.io&access_token=$access_token" | jq -r .refresh_token)
+          docker login -u 00000000-0000-0000-0000-000000000000 --password-stdin ${{ secrets.ACR_NAME }}.azurecr.io <<< "$refresh_token"
 
       - name: Build Podcast Updater
         run: | 
