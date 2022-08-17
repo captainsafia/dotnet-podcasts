@@ -28,7 +28,7 @@ public class PodcastIngestionHandler : IPodcastIngestionHandler
         CancellationToken stoppingToken)
     {
         _logger.LogInformation($"The show {title} at {url} was received by the ingestion worker.");
-        var isExistingShow = await _podcastDbContext.Feeds.AnyAsync(feed => string.Equals(feed.Url, url, StringComparison.OrdinalIgnoreCase), stoppingToken);
+        var isExistingShow = await _podcastDbContext.Feeds.AnyAsync(feed => feed.Url == url, stoppingToken);
         if (isExistingShow) 
             return;
 
