@@ -30,7 +30,7 @@ public static class FeedEndpointsWebApplicationExtensions
         // update a user-submitted feed
         app.MapPut("v1/feeds/{id}", async (PodcastDbContext podcastDbContext, IFeedClient feedClient, Guid id, CancellationToken cancellationToken) =>
         {
-            var feed = podcastDbContext.UserSubmittedFeeds.Find(id);
+            var feed = podcastDbContext.UserSubmittedFeeds.Find(id, cancellationToken);
             if (feed is null)
                 return;
 
@@ -40,6 +40,7 @@ public static class FeedEndpointsWebApplicationExtensions
             podcastDbContext.Remove(feed);
             await podcastDbContext.SaveChangesAsync(cancellationToken);
         })
+        .WithName("UpdateUserSubmittedFeed")
         .WithTags("Feeds");
 
         // delete a specific user-submitted feed

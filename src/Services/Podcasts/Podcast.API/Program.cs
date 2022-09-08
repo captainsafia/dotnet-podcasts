@@ -1,7 +1,6 @@
 using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Podcast.API.Controllers;
 using Podcast.API.Models;
 using Podcast.Infrastructure.Data;
 using Podcast.Infrastructure.Http.Feeds;
