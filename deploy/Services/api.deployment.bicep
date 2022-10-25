@@ -26,7 +26,7 @@ var podcastIngestionWorkerImage = '${acrLoginServer}/podcastingestionworker:${im
 var imagesStorage = 'https://${storageAccountName}.blob.core.windows.net/covers/'
 var storageConnectionString = 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=core.windows.net;AccountKey=${listKeys(resourceId('Microsoft.Storage/storageAccounts', storageAccountName), '2019-06-01').keys[0].value}'
 output storageConnectionString string = storageConnectionString
-var deployIngestion = false
+var deployIngestion = true
 
 resource serverName_resource 'Microsoft.Sql/servers@2020-02-02-preview' = {
   name: serverName

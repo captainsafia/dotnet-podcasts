@@ -1,7 +1,6 @@
 using Azure.Storage.Queues;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Podcast.API.Controllers;
 using Podcast.API.Models;
 using Podcast.Infrastructure.Data;
 using Podcast.Infrastructure.Http.Feeds;
@@ -18,7 +17,7 @@ builder.Services.AddHttpClient<IFeedClient, FeedClient>();
 builder.Services.AddSwaggerGen(setup =>
 {
     setup.SwaggerDoc("v1",
-        new OpenApiInfo { Description = "NetPodcast API", Title = ".NetConf2021", Version = "v1" });
+        new OpenApiInfo { Description = ".NET Podcasts", Title = ".NET Podcasts", Version = "v1" });
 });
 builder.Services.AddCors(setup =>
 {
@@ -34,7 +33,7 @@ await EnsureDbAsync(app.Services);
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "NetPodcast Api v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", ".NET Podcasts");
 });
 
 app.UseCors();
