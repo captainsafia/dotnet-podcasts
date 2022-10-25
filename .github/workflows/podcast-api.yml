@@ -24,14 +24,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build Podcast Updater
-        run: docker build -f ./src/Services/Podcasts/Podcast.Updater.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }} .
+      # - name: Build Podcast Updater
+      #   run: docker build -f ./src/Services/Podcasts/Podcast.Updater.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }} .
 
       - name: Build Podcast Minimal API
         run: docker build -f ./src/Services/Podcasts/Podcast.MinimalAPI/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }} .
 
-      - name: Build Podcast Ingestion
-        run: docker build -f ./src/Services/Podcasts/Podcast.Ingestion.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }} .
+      # - name: Build Podcast Ingestion
+      #   run: docker build -f ./src/Services/Podcasts/Podcast.Ingestion.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }} .
 
   build-and-push:
     if: ${{ github.ref == 'refs/heads/safia/minapi-brady-update' && (github.event_name == 'push' || github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
@@ -58,20 +58,20 @@ jobs:
           username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
           password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
 
-      - name: Build Podcast Updater
-        run: | 
-          docker build -f ./src/Services/Podcasts/Podcast.Updater.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }} .
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }}
+      # - name: Build Podcast Updater
+      #   run: | 
+      #     docker build -f ./src/Services/Podcasts/Podcast.Updater.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }} .
+      #     docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }}
 
       - name: Build Podcast Minimal API
         run: | 
           docker build -f ./src/Services/Podcasts/Podcast.MinimalAPI/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }} .
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }}
 
-      - name: Build Podcast Ingestion
-        run: | 
-          docker build -f ./src/Services/Podcasts/Podcast.Ingestion.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }} .
-          docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }}
+      # - name: Build Podcast Ingestion
+      #   run: | 
+      #     docker build -f ./src/Services/Podcasts/Podcast.Ingestion.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }} .
+      #     docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }}
 
   deploy:
     needs: build-and-push
