@@ -27,8 +27,8 @@ jobs:
       - name: Build Podcast Updater
         run: docker build -f ./src/Services/Podcasts/Podcast.Updater.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }} .
 
-      - name: Build Podcast API
-        run: docker build -f ./src/Services/Podcasts/Podcast.API/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }} .
+      - name: Build Podcast Minimal API
+        run: docker build -f ./src/Services/Podcasts/Podcast.MinimalAPI/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }} .
 
       - name: Build Podcast Ingestion
         run: docker build -f ./src/Services/Podcasts/Podcast.Ingestion.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }} .
@@ -63,9 +63,9 @@ jobs:
           docker build -f ./src/Services/Podcasts/Podcast.Updater.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }} .
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastupdaterworker:${{ github.sha }}
 
-      - name: Build Podcast API
+      - name: Build Podcast Minimal API
         run: | 
-          docker build -f ./src/Services/Podcasts/Podcast.API/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }} .
+          docker build -f ./src/Services/Podcasts/Podcast.MinimalAPI/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }} .
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/podcastapi:${{ github.sha }}
 
       - name: Build Podcast Ingestion
