@@ -26,7 +26,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Podcast.Infrastructure\Podcast.Infrastructure.csproj" />
-		<ProjectReference Include="..\Podcast.Ingestion.Worker\Podcast.Ingestion.Worker.csproj" />
 	</ItemGroup>
 
 </Project>
