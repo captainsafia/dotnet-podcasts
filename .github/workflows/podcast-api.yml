@@ -2,13 +2,13 @@ name: Podcast API CICD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ safia/minapi-brady-update ]
     paths:
       - 'src/Services/Podcasts/**'
       - 'deploy/Services/api.deployment.json'
       - '.github/workflows/podcast-api.yml'
   pull_request:
-    branches: [ main ]
+    branches: [ safia/minapi-brady-update ]
     paths:
       - 'src/Services/Podcasts/**'
       - '.github/workflows/podcast-api.yml'
@@ -34,7 +34,7 @@ jobs:
         run: docker build -f ./src/Services/Podcasts/Podcast.Ingestion.Worker/Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/podcastingestionworker:${{ github.sha }} .
 
   build-and-push:
-    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
+    if: ${{ github.ref == 'refs/heads/safia/minapi-brady-update' && (github.event_name == 'push' || github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -77,7 +77,7 @@ jobs:
     needs: build-and-push
     environment: 
       name: prod
-    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
+    if: ${{ github.ref == 'refs/heads/safia/minapi-brady-update' && (github.event_name == 'push' || github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
