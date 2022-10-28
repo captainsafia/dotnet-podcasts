@@ -12,6 +12,9 @@ param administratorLogin string
 param storageAccountName string
 param kubernetesEnvName string
 param workspaceName string
+param azureAdClientIdVal string
+param azureAdDomainVal string
+param azureAdTenantIdVal string
 
 @secure()
 param administratorLoginPassword string
@@ -143,6 +146,18 @@ resource podcastapica 'Microsoft.Web/containerApps@2021-03-01' = {
           name: 'acr-password'
           value: acrPassword
         }
+        {
+          name: 'azureAdClientId',
+          value: azureAdClientIdVal
+        }
+        {
+          name: 'azureAdDomain',
+          value: azureAdDomainVal
+        }
+        {
+          name: 'azureAdTenantId'
+          value: azureAdTenantIdVal
+        }
       ]
     }
     template: {
@@ -166,6 +181,22 @@ resource podcastapica 'Microsoft.Web/containerApps@2021-03-01' = {
             {
               name: 'Features__FeedIngestion'
               value: '${deployIngestion}'
+            }
+            {
+              name: 'AzureAd__Instance',
+              value: 'https://login.microsoftonline.com/'
+            },
+            {
+              name: 'AzureAd__ClientId',
+              secretRef: 'azureAdClientId'
+            }
+            {
+              name: 'AzureAd__Domain',
+              secretRef: 'azureAdDomain'
+            }
+            {
+              name: 'AzureAd__TenantId',
+              secretRef: 'azureAdTenantId'
             }
           ]
         }
