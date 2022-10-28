@@ -253,6 +253,10 @@
                 {
                   "name": "AzureAd__Domain",
                   "secretRef": "azure-ad-domain"
+                },
+                {
+                  "name": "AzureAd__Instance",
+                  "value": "https://login.microsoftonline.com/"
                 }
               ]
             }
