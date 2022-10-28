@@ -208,15 +208,15 @@
             },
             {
               "name": "azure-ad-client-id",
-              "value": "[variables('azureAdClientIdVal')]"
+              "value": "[parameters('azureAdClientIdVal')]"
             },
             {
               "name": "azure-ad-tenant-id",
-              "value": "[variables('azureAdTenantIdVal')]"
+              "value": "[parameters('azureAdTenantIdVal')]"
             },
             {
               "name": "azure-ad-domain",
-              "value": "[variables('azureAdDomainVal')]"
+              "value": "[parameters('azureAdDomainVal')]"
             }
           ]
         },
