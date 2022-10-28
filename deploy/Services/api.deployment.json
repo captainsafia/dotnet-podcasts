@@ -49,6 +49,18 @@
     },
     "administratorLoginPassword": {
       "type": "secureString"
+    },
+    "azureAdClientIdVal": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "azureAdTenantIdVal": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "azureAdDomainVal": {
+      "type": "string",
+      "defaultValue": ""
     }
   },
   "functions": [],

@@ -12,9 +12,9 @@ param administratorLogin string
 param storageAccountName string
 param kubernetesEnvName string
 param workspaceName string
-param azureAdClientIdVal string
-param azureAdDomainVal string
-param azureAdTenantIdVal string
+param azureAdClientIdVal string = ''
+param azureAdDomainVal string = ''
+param azureAdTenantIdVal string = ''
 
 @secure()
 param administratorLoginPassword string
