@@ -195,15 +195,15 @@
               "value": "[parameters('acrPassword')]"
             },
             {
-              "name": "azureAdClientId",
+              "name": "azure-ad-client-id",
               "value": "[variables('azureAdClientIdVal')]"
             },
             {
-              "name": "azureAdTenantId",
+              "name": "azure-ad-tenant-id",
               "value": "[variables('azureAdTenantIdVal')]"
             },
             {
-              "name": "azureAdDomain",
+              "name": "azure-ad-domain",
               "value": "[variables('azureAdDomainVal')]"
             }
           ]

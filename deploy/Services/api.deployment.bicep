@@ -147,15 +147,15 @@ resource podcastapica 'Microsoft.Web/containerApps@2021-03-01' = {
           value: acrPassword
         }
         {
-          name: 'azureAdClientId',
+          name: 'azure-ad-client-id',
           value: azureAdClientIdVal
         }
         {
-          name: 'azureAdDomain',
+          name: 'azure-ad-domain',
           value: azureAdDomainVal
         }
         {
-          name: 'azureAdTenantId'
+          name: 'azure-ad-tenant-id'
           value: azureAdTenantIdVal
         }
       ]
@@ -188,15 +188,15 @@ resource podcastapica 'Microsoft.Web/containerApps@2021-03-01' = {
             },
             {
               name: 'AzureAd__ClientId',
-              secretRef: 'azureAdClientId'
+              secretRef: 'azure-ad-client-id'
             }
             {
               name: 'AzureAd__Domain',
-              secretRef: 'azureAdDomain'
+              secretRef: 'azure-ad-domain'
             }
             {
               name: 'AzureAd__TenantId',
-              secretRef: 'azureAdTenantId'
+              secretRef: 'azure-ad-tenant-id'
             }
           ]
         }
