@@ -61,7 +61,7 @@ await EnsureDbAsync(app.Services);
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "NetPodcast Api v1");
+    c.SwaggerEndpoint("/swagger.json", ".NET Podcast API");
 });
 app.UseCors();
 app.UseRateLimiter();
