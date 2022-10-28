@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,8 @@ builder.Services.AddSingleton(new QueueClient(queueConnectionString, "feed-queue
 builder.Services.AddHttpClient<IFeedClient, FeedClient>();
 
 // Authentication and authorization-related services
-builder.Services.AddAuthentication().AddJwtBearer();
-builder.Services.AddAuthorization();
+builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthorizationBuilder().AddPolicy("modify_feeds", policy => policy.RequireScope("API.Access"));
 
 // OpenAPI and versioning-related services
 builder.Services.AddSwaggerGen();
