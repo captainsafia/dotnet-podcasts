@@ -241,6 +241,18 @@
                 {
                   "name": "Features__FeedIngestion",
                   "value": "[format('{0}', variables('deployIngestion'))]"
+                },
+                {
+                  "name": "AzureAd__ClientId",
+                  "secretRef": "azure-ad-client-id"
+                },
+                {
+                  "name": "AzureAd__TenantId",
+                  "secretRef": "azure-ad-tenant-id"
+                },
+                {
+                  "name": "AzureAd__Domain",
+                  "secretRef": "azure-ad-domain"
                 }
               ]
             }
