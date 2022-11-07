@@ -53,10 +53,11 @@ public static class FeedsApi
         return builder;
     }
 
-    public static async ValueTask CreateFeed(QueueClient queueClient, UserSubmittedFeedDto feed, CancellationToken cancellationToken)
+    public static async ValueTask<Ok<UserSubmittedFeedDto>> CreateFeed(QueueClient queueClient, UserSubmittedFeedDto feed, CancellationToken cancellationToken)
     {
         await queueClient.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
         await queueClient.SendMessageAsync(new BinaryData(feed), cancellationToken: cancellationToken);
+        return TypedResults.Ok(feed);
     }
 
     public static async ValueTask<Ok<List<UserSubmittedFeed>>> GetAllFeeds(PodcastDbContext podcastDbContext, CancellationToken cancellationToken)
@@ -65,7 +66,12 @@ public static class FeedsApi
         return TypedResults.Ok(feeds);
     }
 
-    public static async ValueTask<Results<NotFound, Accepted>> UpdateFeed(PodcastDbContext podcastDbContext, IFeedClient feedClient, Guid id, CancellationToken cancellationToken)
+    public static async ValueTask<Results<NotFound, Accepted>> UpdateFeed(
+        QueueClient queueClient,
+        PodcastDbContext podcastDbContext,
+        IFeedClient feedClient,
+        Guid id,
+        CancellationToken cancellationToken)
     {
         var feed = podcastDbContext.UserSubmittedFeeds.Find(id);
         if (feed is null)
@@ -79,7 +85,7 @@ public static class FeedsApi
         return TypedResults.Accepted($"/feeds/{id}");
     }
 
-    public static async ValueTask<Results<NotFound, NoContent>> DeleteFeed(PodcastDbContext podcastDbContext, IFeedClient feedClient, Guid id, CancellationToken cancellationToken)
+    public static async ValueTask<Results<NotFound, Ok<string>>> DeleteFeed(HttpContext context, PodcastDbContext podcastDbContext, IFeedClient feedClient, Guid id, CancellationToken cancellationToken)
     {
         var feed = podcastDbContext.UserSubmittedFeeds.FirstOrDefault(x => x.Id == id);
         if (feed is null)
@@ -87,6 +93,6 @@ public static class FeedsApi
 
         podcastDbContext.Remove(feed);
         await podcastDbContext.SaveChangesAsync(cancellationToken);
-        return TypedResults.NoContent();
+        return TypedResults.Ok($"Feed {id} was successfully deleted.");
     }
 }
